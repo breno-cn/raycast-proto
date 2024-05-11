@@ -53,7 +53,7 @@ void Game::drawRays() {
 
     bool tileFound = false;
     float currentDistance = 0;
-    const float maxDistance = 1000;
+    const float maxDistance = 10000;
     while (!tileFound && currentDistance < maxDistance) {
         // walk
         if (rayLength1D.x < rayLength1D.y) {
@@ -69,11 +69,11 @@ void Game::drawRays() {
         int mapX = (int) (mapCheck.x) / TILE_SIZE.x;
         int mapY = (int) (mapCheck.y) / TILE_SIZE.y;
 
-        std::cout << mapX << " " << mapY << std::endl;
 
         if (mapX >= 0 && mapX < MAP_WIDTH && mapY >= 0 && mapY < MAP_HEIGHT) {
-            if (_map.get()->_tiles[mapX][mapY] == WALL) {
+            if (_map.get()->_tiles[mapY][mapX] == WALL) {
                 tileFound = true;
+                // std::cout << mapX << " " << mapY << std::endl;
             } 
         }
     }
@@ -84,68 +84,9 @@ void Game::drawRays() {
 
         // DrawRectangleV(intersection, { 5, 5 }, PURPLE);
         DrawLineEx(_player.get()->_position, intersection, 5, GREEN);
+        // std::cout << intersection.x << " || " << intersection.y << std::endl;
     }
 }
-
-// void Game::drawRays() {
-//     float rayAngle = _player.get()->_angle;
-//     float rayY;
-//     float rayX;
-//     float yOffeset;
-//     float xOffset;
-//     float depthOfField;
-
-//     const int maxDepthOfField = 32;
-
-//     for (int i = 0; i < 1; i++) {
-//         float inverseTangent = -1 / tan(rayAngle);
-        
-//         // looking up
-//         if (rayAngle > PI) {
-//             rayY = (((int) _player.get()->_position.y >> 6) << 6) - 0.0001;
-//             rayX = (_player.get()->_position.y - rayY) * inverseTangent + _player.get()->_position.x;
-//             yOffeset = -64;
-//             xOffset = -yOffeset * inverseTangent;
-//         }
-
-//         // looking down
-//         if (rayAngle < PI) {
-//             rayY = (((int) _player.get()->_position.y >> 6) << 6) + 64;
-//             rayX = (_player.get()->_position.y - rayY) * inverseTangent + _player.get()->_position.x;
-//             yOffeset = 64;
-//             xOffset = -yOffeset * inverseTangent;
-//         }
-
-//         // looking straight left or right
-//         if (rayAngle == 0 || rayAngle == PI) {
-//             rayX = _player.get()->_position.x;
-//             rayY = _player.get()->_position.y;
-//             depthOfField = 8;
-//         }
-
-//         while (depthOfField < maxDepthOfField) {
-//             int mapX;
-//             int mapY;
-
-//             mapX = floor((rayX) / MAP_WIDTH);
-//             mapY = floor((rayY) / MAP_HEIGHT);
-//             // mapPosition = mapY*MAP_WIDTH + mapX;
-
-
-//             if (mapX > 0 && mapY > 0 && mapX < MAP_WIDTH && mapY < MAP_HEIGHT && _map.get()->_tiles[mapX][mapY] == WALL) {
-//                 depthOfField = maxDepthOfField;
-//             } else {
-//                 rayX += xOffset;
-//                 rayY += yOffeset;
-//                 depthOfField += 1;
-//             }
-//         }
-
-//         Vector2 endPosition = { rayX, rayY };
-//         DrawLineV(_player.get()->_position, endPosition, BLUE);
-//         // std::cout << endPosition.x << " " << endPosition.y << std::endl;
-//     }
-// }
 
 void Game::draw() {
     _map.get()->draw();
