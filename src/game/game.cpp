@@ -49,7 +49,9 @@ void Game::drawRays() {
         direction = { cos(angle) * 5, sin(angle) * 5 };
 
         // draw line
-        float distance = ray.length;
+        float beta = Vector2Angle(direction, _player.get()->_direction);
+
+        float distance = ray.length * cos(beta);
         // Color color = { 150 - distance * 1.5, 150 - distance * 1.5, 150 - distance * 1.5, 255 };
         Color color = BLACK;
 
