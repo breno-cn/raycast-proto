@@ -56,7 +56,7 @@ Raycast castRay(Vector2 rayStart, Vector2 direction, std::shared_ptr<GameMap> ma
     }
 
     Vector2 rayPosition = Vector2Add(rayStart, Vector2Scale(rayDirection, currentDistance));
-    Raycast ray = { .position = rayPosition, .hitWall = tileFound };
+    Raycast ray = { .position = rayPosition, .length = currentDistance, .hitWall = tileFound };
 
     return ray;
 }

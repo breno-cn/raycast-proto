@@ -8,6 +8,7 @@
 
 typedef struct {
     Vector2 position;
+    float length;
     bool hitWall;
 } Raycast;
 
